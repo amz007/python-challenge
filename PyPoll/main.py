@@ -34,6 +34,7 @@ with open(csvpath) as csvfile:
 winner = None
 winner_votes = 0
     
+#percentage dictionary, store all votes by candidates and create percentage
 percentages = {candidate: (votes[candidate] / total_votes) * 100 for candidate in votes}
 
 #print results
@@ -57,7 +58,7 @@ output_path = os.path.join("analysis", "analysis.txt")
 #open the file using "write" mode. Specifiy the variable to hold the contents
 with open(output_path, "w") as txt_file:
 
-    #print
+    #print to text file
     txt_file.write("\nElection Results\n")
     txt_file.write("\n-------------------------\n")
     txt_file.write(f"\nTotal Votes: {total_votes}\n")

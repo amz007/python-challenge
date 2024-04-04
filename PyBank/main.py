@@ -32,19 +32,19 @@ with open(csvpath) as csvfile:
         #count total months
         total_months += 1
         
-        #extract date/profit/loss value from the row. Adding datetime module to format date from dd-m to m-dd
+        #extract date/profit/loss value from columns
         date = row[0]
         profit_loss = int(row[1])
         
-        #add profit/loss to the total
+        #summing total profit/loss
         total_profit_losses += profit_loss
         
-        #calcualte change in profit/loss
+        #calculate change in profit/loss
         if previous_profit_loss is not None:
             change = profit_loss - previous_profit_loss
             changes.append(change)
             
-            #calculate max increase and max decrease with date
+            #calculate max increase and max decrease and extract date
             if change > max_increase_amount:
                 max_increase_amount = change
                 max_increase_date = date
@@ -52,7 +52,7 @@ with open(csvpath) as csvfile:
                 max_decrease_amount = change
                 max_decrease_date = date
         
-        #close loop
+        #track profit loss through months
         previous_profit_loss = profit_loss
 
 #calculate average change
@@ -60,16 +60,13 @@ average_change = sum(changes) / len(changes)
 
 
 # Print the results
-print("                        ")
-print("Financial Analysis")
-print("                        ")
-print("-------------------------")
-print("                        ")
-print("Total Months:", total_months)
-print("Total Profit/Losses: $", total_profit_losses)
-print("Average Change: $", round(average_change, 2))
-print("Greatest Increase in Profits:", max_increase_date, "($", max_increase_amount,")")
-print("Greatest Decrease in Profits:", max_decrease_date, "($", max_decrease_amount,")")
+print("\nFinancial Analysis")
+print("\n-------------------------")
+print("\nTotal Months:", total_months)
+print("\nTotal Profit/Losses: $", total_profit_losses)
+print("\nAverage Change: $", round(average_change, 2))
+print("\nGreatest Increase in Profits:", max_increase_date, "($", max_increase_amount,")")
+print("\nGreatest Decrease in Profits:", max_decrease_date, "($", max_decrease_amount,")")
 
 #Export analysis to txt file
 output_path = os.path.join("analysis", "analysis.txt")
